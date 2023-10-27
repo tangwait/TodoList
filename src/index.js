@@ -107,10 +107,7 @@ function createAndAppendForm(container, button, formName, formElements) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-
-        if (button === createListDiv) {
-            listFunctions.addToMyList();
-        } 
+        listFunctions.addToMyList();
     });
 
     appendDiv(button, form);

@@ -1,8 +1,110 @@
+html, body {
+    display: grid;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 #container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 10% auto; 
+    height: 100%;
+    text-wrap: nowrap;
+    border: 1px black solid;
+    border-radius: 10%;
+    padding: 10px;
+    overflow: hidden;
 }
 
 .headerContainer {
+    grid-column: span 2;
     display: flex;
-    flex: 1;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border: 1px black solid;
+    padding: 30px;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    border: 1px black solid;
+    padding: 10px;
+}
+
+
+input {
+    width: 100%;
+}
+
+/* set parent containers to grid */
+#form-elementdescription,
+#form-elementname,
+#form-elementdue {
+    display: grid;
+}
+
+.createFormContainer {
+    justify-content: center;
+    align-items: center;
+}
+#name,
+#description,
+#due {
+    align-items: center;
+}
+.mainContentContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 300px));
+    gap: 10px;
+    padding: 10px;
+}
+
+.createListCard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+}
+
+#form-elementname,
+#form-elementdescription,
+#form-elementdue {
+    grid-column: span 2;
+}
+
+#input-name {
+    grid-column: span 2;
+}
+#input-description {
+    grid-column: span 2;
+    grid-row: span 3;
+}
+
+
+#name {
+    grid-column: span 2;
+}
+
+#form-elementdue {
+    width: 50%;
+}
+
+#listCard {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 10px;
+    border: 1px black solid;
+}
+
+.listCardItem {
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px;
 }

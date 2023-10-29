@@ -2,73 +2,81 @@
 const myList = [];
 
 export class List {
-    constructor(name, desc, dueDate) {
+    constructor(name, desc, due) {
         this.name = name,
         this.desc = desc,
-        this.dueDate = dueDate;
+        this.due = due;
     }
 }
 
 export function addToMyList() {
-    const listNameInput = document.getElementById('name').value;
-    const listDescInput = document.getElementById('description').value;
-    const listDueDateInput = document.getElementById('dueDate').value;
+    const listNameInput = document.querySelector('#name').value;
+    const listDescInput = document.querySelector('#description').value;
+    const listDueInput = document.querySelector('#due').value;
 
-    if (listNameInput && listDescInput && listDueDateInput) {
-        const newList = new List(listNameInput, listDescInput, listDueDateInput);
+    if (listNameInput && listDescInput && listDueInput) {
+        const newList = new List(listNameInput, listDescInput, listDueInput);
         myList.push(newList);
 
-    document.getElementById('name').value = '';
-    document.getElementById('desc').value = '';
-    document.getElementById('dueDate').value = '';
+        document.querySelector('#name').value = '';
+        document.querySelector('#description').value = '';
+        document.querySelector('#due').value = '';
 
-    makeAndAppendCard();
+        console.log('listNameInput:', listNameInput);
+        console.log('listDescInput:', listDescInput);
+        console.log('listDueInput:', listDueInput);
+        
+        const newIndex = myList.length - 1; 
+        makeAndAppendCard(newIndex);
+        makeDeleteButton(newIndex);
+        console.log(myList);
     }
 }
 
-export function makeAndAppendCard() {
+
+export function makeAndAppendCard(index) {
     const mainContentContainer = document.querySelector('.mainContentContainer');
 
-    for (let i = 0; i < myList.length; i++) {
-        const listCard = document.createElement('div');
-        listCard.classList.add('listCard');
+    const listCard = document.createElement('div');
+    listCard.classList.add(`card${index}`);
+    listCard.id = "listCard";
 
-        const listDetails = ['Name', 'desc', 'dueDate'];
+    const listDetails = ['Name', 'Desc', 'Due'];
 
-        listDetails.forEach(detail => {
-            const nameElement = document.createElement('div');
-            nameElement.classList.add('cardName');
-            nameElement.textContent = `${detail}: `;
+    listDetails.forEach(detail => {
+        const nameElement = document.createElement('div');
+        nameElement.classList.add('listCardItem');
+        nameElement.textContent = `${detail}: ${myList[index][detail.toLowerCase()]}`;
 
-            const descElement = document.createElement('div');
-            descElement.classList.add('cardDesc');
-            descElement.textContent = `${detail}: `;
+        listCard.appendChild(nameElement);
+    });
 
-            const dueDateElement = document.createElement('div');
-            dueDateElement.classList.add('cardDueDate');
-            dueDateElement.textContent = myList[i][`list${detail}`];
-
-            nameElement.appendChild(descElement);
-            nameElement.appendChild(dueDateElement);
-            listCard.appendChild(nameElement);
-        });
-        mainContentContainer.appendChild(listCard);
-        console.log("make and append card works")
-    }
+    mainContentContainer.appendChild(listCard);
+    console.log("make and append card works");
 }
 
-function makeDeleteButton() {
-    // const deleteButton = document.createElement ('button');
-    // deleteButton.textContent = 'Delete';
-    // deleteButton.classList.add('deleteButton');
-    // deleteButton.addEventListener('click', () => deleteList(index));
-    // listCard.appendChild(deleteButton);
+
+function makeDeleteButton(index) {
+    const deleteButton = document.createElement ('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('deleteButton');
+    deleteButton.addEventListener('click', () => {
+        deleteList(index)
+        removeCardDOM(index)
+    });
+    
+    const listCard = document.querySelector(`.card${index}`)
+    listCard.appendChild(deleteButton);
     console.log("this works")
 }
 
-export function deleteList(index) {
+function removeCardDOM(index) {
+    const listCard = document.querySelector(`.card${index}`);
+    listCard.remove();
+}
+function deleteList(index) {
     myList.splice(index, 1);
-    displayList();
+
 }
 
 

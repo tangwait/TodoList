@@ -25,13 +25,12 @@ const mainContentContainer = createDiv('mainContentContainer');
 const sidebar = createDiv('sidebar');
 const sidebarTitle = createDiv('sidebarTitle');
 const sidebarDesc = createDiv('sidebarDesc');
+const sidebarDescText = createDiv('sidebarDescText');
 
 //create buttons
 const createListDiv = createDiv('createList');
-const addToListDiv = createDiv('addToList');
 
 //create form container
-const toDoListFormContainer = createDiv('formContainer');
 const createListFormContainer = createDiv('createFormContainer');
 
 //append headers
@@ -39,19 +38,14 @@ appendDiv(document.body, container);
 appendDiv(container, headerContainer);
 appendDiv(headerContainer, headerLogo);
 appendDiv(headerContainer, headerTitle);
-appendDiv(container, mainContentContainer);
 
 //append sidebar
 appendDiv(container, sidebar);
+appendDiv(container, mainContentContainer);
+
 appendDiv(sidebar, sidebarTitle);
-appendDiv(sidebar, sidebarDesc);
-
-//append buttons
-appendDiv(sidebarDesc, createListDiv);
-appendDiv(sidebarDesc, addToListDiv);
-
-//append form container
-appendDiv(sidebarDesc, toDoListFormContainer);
+appendDiv(sidebar, sidebarDescText);
+appendDiv(sidebarDescText, sidebarDesc);
 appendDiv(sidebarDesc, createListFormContainer);
 
 function createFormDiv(name) {
@@ -62,8 +56,8 @@ function createFormDiv(name) {
 }
 
 function createFormElements() {
-    const formElements = ['name', 'description', 'dueDate'];
-    const formElementLabels = ['Name:', 'Description:', 'Due Date:'];
+    const formElements = ['name', 'description', 'due'];
+    const formElementLabels = ['Name: ', 'Description: ', 'Date Due: '];
 
     const elements = {};
 
@@ -71,16 +65,17 @@ function createFormElements() {
         // Create a container div to group the label and input
         const containerDiv = document.createElement('div');
         containerDiv.classList.add('form-element');
-
+        containerDiv.id = `form-element${element}`;
         // Create a label and associate it with the input
         const label = document.createElement('label');
         label.textContent = formElementLabels[index];
-        label.htmlFor = element;
+        label.htmlFor = `input-${element}`;
+        label.id = element;
 
         const input = document.createElement('input');
         input.type = 'text';
-        input.name = element;
-        input.id = element;
+        input.name = `input-${element}`;
+        input.id = `input-${element}`;
         input.placeholder = formElementLabels[index];
         input.required = true;
 
@@ -98,26 +93,35 @@ function createFormElements() {
     return elements;
 }
 
-function createAndAppendForm(container, button, formName, formElements) {
+function createAndAppendForm(formContainer, formDiv, formName, formElements) {
     const form = createFormDiv(formName);
-
+//creates form div
     for (const element in formElements) {
         appendDiv(form, formElements[element]);
     }
-
+//gets form input/elements/submit button
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         listFunctions.addToMyList();
     });
 
-    appendDiv(button, form);
-    appendDiv(container, button);
+    appendDiv(formDiv, form);
+    appendDiv(formContainer, formDiv);
 }
 
-  
-  // Create and append forms to buttons
+
 createAndAppendForm(createListFormContainer, createListDiv, 'createListCard', createFormElements());
 
-  //call func to change text
+//   //call func to change text
+changeText.changeHeaderLogo();
+changeText.changeHeaderTitle();
+changeText.changeSidebarDescText();
+changeText.changeSidebarTitle();
 
-// changeText();
+// function createAndAppendForm(formName) {
+//     const form = createFormDiv(formName)
+//     console.log(form)
+
+//}
+
+// createAndAppendForm('createListCard')

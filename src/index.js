@@ -114,7 +114,7 @@ function createAndAppendForm(parentFormDiv, createdFormName, formElements) {
 
 
 
-const formElements = createFormElements(); // Create form elements once
+const formElements = createFormElements(); 
 
 createAndAppendForm(createListDiv, 'createListCard', formElements);
 

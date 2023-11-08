@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js',
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Tangwait's Todo List'",
+      title: "Tangwait's Todo List",
     }),
   ],
   output: {
